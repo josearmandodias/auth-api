@@ -4,6 +4,9 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import router from "./routers/index.router.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI;
