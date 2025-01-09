@@ -41,6 +41,12 @@ export default {
     },
 
     signin: async (req, res) => {
-        
+        const { email, password } = req.body;
+
+        try {
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 };
