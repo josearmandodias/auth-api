@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import { createHmac } from "crypto";
 
 export default {
     doHash: function (value, saltValue){
@@ -8,6 +9,11 @@ export default {
 
     compareHash: function (value, hashedValue){
         const result = bcrypt.compare(value, hashedValue);
+        return result;
+    },
+
+    hmacProcess: function (value, key){
+        const result = createHmac('sha256', key).update(value).digest('hex');
         return result;
     }
 }
