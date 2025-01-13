@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import validatorMiddlewares from "../middlewares/validator.middlewares.js";
 import User from "../models/user.models.js";
 import hashingUtils from "../utils/hashing.utils.js";
-import transporter from "../middlewares/email.middlewares.js";
+import { transporter } from "../middlewares/email.middlewares.js"
 
 export default {
 
@@ -120,13 +120,14 @@ export default {
             }
 
             const code = Math.floor(Math.random() * 1000000).toString();
+
             let info = await transporter.sendMail({
                 from: process.env.CODE_SENDING_EMAIL,
                 to: existingUser.email,
                 subject: 'Email verification',
                 html: '<h1>' + code + '</h1>'
-            })
-
+            });
+            
             if(info.accepted[0] === existingUser.email) {
                 const hashedCode = hashingUtils.hmacProcess(code, process.env.HMAC_VERIFICATION_CODE);
                 existingUser.verificationCode = hashedCode;

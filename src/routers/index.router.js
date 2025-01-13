@@ -15,6 +15,6 @@ router.post('/auth/signin',authControllers.signIn);
 router.post('/auth/signout',authControllers.signOut);
 
 //Get verification code send at email
-router.patch('/auth/send-verification',authControllers.sendVerificationsCode);
+router.patch('/auth/send-verification',authControllers.sendVerificationCode);
 
 export default router;
