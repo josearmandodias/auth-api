@@ -130,7 +130,7 @@ export default {
             
             if(info.accepted[0] === existingUser.email) {
                 const hashedCode = hashingUtils.hmacProcess(code, process.env.HMAC_VERIFICATION_CODE);
-                existingUser.verificationCode = hashedCode;
+                existingUser.verificationCode = parseInt(hashedCode);
                 existingUser.verificationCodeDate = Date.now();
                 existingUser.verified = 'true';
                 await existingUser.save();
