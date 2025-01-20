@@ -136,9 +136,38 @@ export default {
                 await existingUser.save();
                 return res.status(200).json({ success: true, message: 'Code sent' });
             }
+
             res.status (400).json({ success: false, message: 'Code sent failed' });
         } catch (error) {
             console.log(error)
+        }
+    },
+
+    verifySentCode: async (req, res) => {
+        const {email, code} = req.body;
+
+        try {
+            const { error, value } = validatorMiddlewares.acceptCodeSchema.validate({ email, code });
+            if(error) {
+                return res
+                    .status(401)
+                    .json({ success: false, message: error.details[0].message });
+            }
+
+            const codeValue = code.toString();
+            const existingUser = await User.findOne({
+                email: email
+            }).select("+verificationCode")
+
+            if(!existingUser) {
+                return res.status(401).json({success: false, message: 'User does not exists'});
+            }
+
+            if(!existingUser.verificationCode) {
+                return res.status(401).json({success: false, message: 'Verification code is wrong'})
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 };
