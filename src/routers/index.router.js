@@ -7,7 +7,14 @@ router.get('/', (req, res) => {
     res.json("Allez l'OM");
 });
 
-router.post('/auth/signup',authControllers.signup);
-router.post('/auth/signin',authControllers.signin);
+//Sign up to an account
+router.post('/auth/signup',authControllers.signUp);
+//Sign in to an account
+router.post('/auth/signin',authControllers.signIn);
+//Sign out from an account 
+router.post('/auth/signout',authControllers.signOut);
+
+//Get verification code send at email
+router.patch('/auth/send-verification',authControllers.sendVerificationCode);
 
 export default router;
